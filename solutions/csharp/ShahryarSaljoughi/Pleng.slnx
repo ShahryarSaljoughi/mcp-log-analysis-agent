@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Pleng.MCP.Server/Pleng.MCP.Server.csproj" />
+  </Folder>
+</Solution>
