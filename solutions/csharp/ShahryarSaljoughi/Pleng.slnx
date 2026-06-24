@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Pleng.Agent/Pleng.Agent.csproj" Id="39b4114c-36c7-481d-8f9d-5d99d3cfe6c5" />
     <Project Path="src/Pleng.MCP.Server/Pleng.MCP.Server.csproj" />
   </Folder>
 </Solution>
