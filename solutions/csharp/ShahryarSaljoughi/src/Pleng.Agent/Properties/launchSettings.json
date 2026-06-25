@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "Pleng.Agent-OpenAI": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "OPENAI_API_KEY": "aa-j2P0tSorSmnqThZesLkjk2cNlTZh4IFKqPSBbTiQZVE2jJjg",
+        "OPENAI_ENDPOINT": "https://api.avalai.ir/v1 ",
+        "BackendType": "OpenAI"
+      }
+    },
+    "Pleng.Agent-Fake": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "BackendType": "Fake"
+      }
+    }
+  }
+}

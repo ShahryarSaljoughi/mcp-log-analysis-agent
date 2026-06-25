@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Pleng.Agent.LLMClients;
 
-internal class OpenAIClientProvider(ILoggerFactory loggerFactory) : ChatClientProvider
+internal class OpenAIClientProvider(ILoggerFactory loggerFactory, Action<ChatOptions>? chatOptionsBuilder = null) : ChatClientProvider
 {
     public override IChatClient Create(Config config)
     {
@@ -21,9 +21,10 @@ internal class OpenAIClientProvider(ILoggerFactory loggerFactory) : ChatClientPr
 
 
         var chatClient = openAiClient
-            .GetChatClient("gpt-5-mini") // claude-haiku-4-5
+            .GetChatClient("gpt-5-mini")
             .AsIChatClient()
             .AsBuilder()
+            .ConfigureOptions(options => chatOptionsBuilder?.Invoke(options))
             .UseLogging(loggerFactory)
             .UseOpenTelemetry(loggerFactory, sourceName: "Pleng.Agent", c => c.EnableSensitiveData = true)
             .Build();

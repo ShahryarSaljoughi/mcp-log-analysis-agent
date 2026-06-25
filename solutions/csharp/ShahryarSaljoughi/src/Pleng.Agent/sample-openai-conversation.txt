@@ -1,0 +1,143 @@
+trce: Microsoft.Extensions.AI.LoggingChatClient[805843669]
+      GetResponseAsync invoked: [
+        {
+          "role": "user",
+          "contents": [
+            {
+              "$type": "text",
+              "text": "Why has the payment service been returning HTTP 500 errors during the last 15 minutes?"
+            }
+          ]
+        }
+      ]. Options: {
+        "instructions": "You are a senior platform engineer.\r\nYou will be asked about the status of our infrastructure and how healthy they work.\r\nYou should guide us to fix issues in case logs show such.\r\nYou can use `get_log` tool for accessing logs.\r\nYour answers should start by indicating relevant logs and followed by  at most a single paragraph giving hints on how to fix."
+      }. Metadata: {
+        "providerName": "openai",
+        "providerUri": "https://api.avalai.ir/v1 ",
+        "defaultModelId": "gpt-5-mini"
+      }.
+trce: Microsoft.Extensions.AI.LoggingChatClient[384896670]
+      GetResponseAsync completed: {
+        "messages": [
+          {
+            "createdAt": "2026-06-24T23:10:52+00:00",
+            "role": "assistant",
+            "contents": [
+              {
+                "$type": "functionCall",
+                "name": "get_logs",
+                "arguments": {
+                  "serviceName": "payment",
+                  "minutesAgo": 15
+                },
+                "informationalOnly": false,
+                "callId": "call_TYpCW3bqNPBgKNLwu1m2APKD"
+              }
+            ],
+            "messageId": "chatcmpl-DuR24aWrpUlRNulQTOoaGtYqwvIyp"
+          }
+        ],
+        "responseId": "chatcmpl-DuR24aWrpUlRNulQTOoaGtYqwvIyp",
+        "modelId": "gpt-5-mini",
+        "createdAt": "2026-06-24T23:10:52+00:00",
+        "finishReason": "tool_calls",
+        "usage": {
+          "inputTokenCount": 269,
+          "outputTokenCount": 94,
+          "totalTokenCount": 363,
+          "cachedInputTokenCount": 0,
+          "reasoningTokenCount": 64,
+          "additionalCounts": {
+            "InputTokenDetails.AudioTokenCount": 0,
+            "OutputTokenDetails.AudioTokenCount": 0,
+            "OutputTokenDetails.AcceptedPredictionTokenCount": 0,
+            "OutputTokenDetails.RejectedPredictionTokenCount": 0
+          }
+        }
+      }.
+trce: Microsoft.Extensions.AI.LoggingChatClient[805843669]
+      GetResponseAsync invoked: [
+        {
+          "role": "user",
+          "contents": [
+            {
+              "$type": "text",
+              "text": "Why has the payment service been returning HTTP 500 errors during the last 15 minutes?"
+            }
+          ]
+        },
+        {
+          "createdAt": "2026-06-24T23:10:52+00:00",
+          "role": "assistant",
+          "contents": [
+            {
+              "$type": "functionCall",
+              "name": "get_logs",
+              "arguments": {
+                "serviceName": "payment",
+                "minutesAgo": 15
+              },
+              "informationalOnly": true,
+              "callId": "call_TYpCW3bqNPBgKNLwu1m2APKD"
+            }
+          ],
+          "messageId": "chatcmpl-DuR24aWrpUlRNulQTOoaGtYqwvIyp"
+        },
+        {
+          "role": "tool",
+          "contents": [
+            {
+              "$type": "functionResult",
+              "result": {
+                "$type": "text",
+                "text": "[\"[Error] - Payment - Database Connection Timedout after ms on SQL-Server-01\"]"
+              },
+              "callId": "call_TYpCW3bqNPBgKNLwu1m2APKD"
+            }
+          ]
+        }
+      ]. Options: {
+        "instructions": "You are a senior platform engineer.\r\nYou will be asked about the status of our infrastructure and how healthy they work.\r\nYou should guide us to fix issues in case logs show such.\r\nYou can use `get_log` tool for accessing logs.\r\nYour answers should start by indicating relevant logs and followed by  at most a single paragraph giving hints on how to fix."
+      }. Metadata: {
+        "providerName": "openai",
+        "providerUri": "https://api.avalai.ir/v1 ",
+        "defaultModelId": "gpt-5-mini"
+      }.
+trce: Microsoft.Extensions.AI.LoggingChatClient[384896670]
+      GetResponseAsync completed: {
+        "messages": [
+          {
+            "createdAt": "2026-06-24T23:10:54+00:00",
+            "role": "assistant",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "Relevant logs: \"[Error] - Payment - Database Connection Timedout after ms on SQL-Server-01\"\n\nThis indicates the payment service is failing to open/obtain DB connections to SQL-Server-01 (causing 500s); likely causes are the DB being overloaded/unreachable, exhausted connection pool on the service, network/firewall or auth issues, or long-running/blocked queries on the server. Immediate steps: check SQL-Server-01 health (CPU, memory, active connections, locks/blocked queries and its error logs) and network connectivity from payment hosts, inspect the payment service connection-pool usage and timeouts, restart the failing component only if necessary, and as follow-ups add retries with backoff, circuit-breaker, increase pool or tune timeouts, and investigate recent deployments or schema/queries that could cause long locks."
+              }
+            ],
+            "messageId": "chatcmpl-DuR26pneOktV6JrMgR05qqXHO47YX"
+          }
+        ],
+        "responseId": "chatcmpl-DuR26pneOktV6JrMgR05qqXHO47YX",
+        "modelId": "gpt-5-mini",
+        "createdAt": "2026-06-24T23:10:54+00:00",
+        "finishReason": "stop",
+        "usage": {
+          "inputTokenCount": 339,
+          "outputTokenCount": 759,
+          "totalTokenCount": 1098,
+          "cachedInputTokenCount": 0,
+          "reasoningTokenCount": 576,
+          "additionalCounts": {
+            "InputTokenDetails.AudioTokenCount": 0,
+            "OutputTokenDetails.AudioTokenCount": 0,
+            "OutputTokenDetails.AcceptedPredictionTokenCount": 0,
+            "OutputTokenDetails.RejectedPredictionTokenCount": 0
+          }
+        }
+      }.
+
+
+
+
+
