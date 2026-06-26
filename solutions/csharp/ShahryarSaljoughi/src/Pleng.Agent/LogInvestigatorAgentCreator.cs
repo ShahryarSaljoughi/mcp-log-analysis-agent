@@ -10,16 +10,7 @@ internal class LogInvestigatorAgentCreator
 {
     public async Task<AIAgent> CreateAsync(Config agentConfig)
     {
-        var loggerFactory = LoggerFactory.Create(builder =>
-        {
-            builder.SetMinimumLevel(LogLevel.Information);
-            builder.AddConsole(opt => { });
-            builder.AddOpenTelemetry(logging =>
-            {
-                logging.IncludeFormattedMessage = true;
-                logging.IncludeScopes = true;
-            });
-        });
+        var loggerFactory = LogUtils.Default;
 
         ChatClientProvider chatClientProvider = agentConfig.BackendType switch
         {
@@ -55,8 +46,8 @@ internal class LogInvestigatorAgentCreator
                 {
                     Name = "Platform Engineer Agent | MCP Server",
                     Command = "dotnet",
-                    Arguments = ["run", "--project", mcpPath]
-                }));
+                    Arguments = ["run", "--project", mcpPath],
+                }, LogUtils.Default));
 
         var mcpTools = await mcpClient.ListToolsAsync();
         return [.. mcpTools.Cast<AITool>()];

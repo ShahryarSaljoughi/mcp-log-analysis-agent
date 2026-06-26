@@ -70,8 +70,8 @@ internal class FakeLLMClientProvider : ChatClientProvider
                             "get_logs",
                             new Dictionary<string, object?>()
                             {
-                                { "service_name", "Payment" } ,
-                                { "minutes_ago", 60 }
+                                { "serviceName", "Payment" } ,
+                                { "minutesAgo", 60 }
                             })
                         ]
                 }
@@ -83,9 +83,14 @@ internal class FakeLLMClientProvider : ChatClientProvider
         private ChatResponse GetFinalAnswer(IEnumerable<ChatMessage> messages)
         {
             var toolCallResultContents = messages
-                .Where(m => m.Contents.Any(c => c is FunctionResultContent))
+                .SelectMany(m => m.Contents)
+                .Where(m => m is FunctionResultContent)
+                .Cast<FunctionResultContent>()
+                .Select(m => m.Result.ToString())
                 .ToList();
-            var toolCallResponse = string.Join(Environment.NewLine, toolCallResultContents.Select(m => m.Text));
+                
+            var toolCallResponse = string.Join(Environment.NewLine, toolCallResultContents);
+
             var result = new FinalAnswer
             {
                 FinalAnswerText = $"I have gathered the relevant logs here: ```{toolCallResponse}```",
