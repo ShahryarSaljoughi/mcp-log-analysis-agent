@@ -15,15 +15,7 @@ var agentConfig = new Config(
     );
 
 var logInvestigationAgent = await new LogInvestigatorAgentCreator().CreateAsync(agentConfig);
-
-//var prompt1 = "Why has the payment service been returning HTTP 500 errors during the last 15 minutes?";
-//var prompt2 = "What is wrong with my services?";
-//var prompt1 = args[0];
-//var agentResponse = await logInvestigationAgent.RunAsync(prompt1);
-
-//Console.WriteLine(agentResponse);
-
-var dataCollectorAgent = await new DataCollectorCreator().CreateAsync(agentConfig);
+var dataCollectorAgent = await new DataCollectorAgentCreator().CreateAsync(agentConfig);
 
 
 var dataCollectionExecutor = new DataCollectionExecutor(dataCollectorAgent);    
@@ -32,8 +24,7 @@ var workflow = new WorkflowBuilder(dataCollectionExecutor)
     .AddEdge(dataCollectionExecutor, logInvestigationExecutor)
     .WithOutputFrom(logInvestigationExecutor)
     .Build();
-string initialMessage = "Why has the payment service been returning HTTP 500 errors during the last 15 minutes?";
-initialMessage = "Why has the payment service been returning HTTP 500 errors?";
+string initialMessage = args[0];
 StreamingRun run = await InProcessExecution.RunStreamingAsync(workflow, new ChatMessage(ChatRole.User, initialMessage));
 await run.TrySendMessageAsync(new TurnToken(emitEvents: true));
 
@@ -41,7 +32,7 @@ await foreach (WorkflowEvent evt in run.WatchStreamAsync().ConfigureAwait(false)
 {
     if (evt is WorkflowOutputEvent outputEvent)
     {
-        Console.WriteLine($"{outputEvent}");
+        Console.WriteLine($"{outputEvent.As<FinalAnswer>().Text}");
     }
 }
 

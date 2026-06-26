@@ -6,30 +6,18 @@ using System.Text.Json.Serialization;
 
 namespace Pleng.Agent;
 
-//internal sealed partial class DataCollectionFaultTerminator : Executor<DataCollectionResult, FinalAnswer>
-//{
-//    public override ValueTask<FinalAnswer> HandleAsync(DataCollectionResult message, IWorkflowContext context, CancellationToken cancellationToken = default)
-//    {
-        
-//    }
-//}
-
-/// <summary>
-/// Executor that assists with ensuring needed data are provided by user.
-/// </summary>
 internal sealed partial class DataCollectionExecutor : Executor<ChatMessage, DataCollectionResult>
 {
     private readonly AIAgent _dataCollectorAgent;
 
-    public DataCollectionExecutor(AIAgent spamDetectionAgent) : base("DataCollectionExecutor")
+    public DataCollectionExecutor(AIAgent dataCollectorAgent) : base("DataCollectionExecutor")
     {
-        this._dataCollectorAgent = spamDetectionAgent;
+        this._dataCollectorAgent = dataCollectorAgent;
     }
 
     public override async ValueTask<DataCollectionResult> HandleAsync(ChatMessage message, IWorkflowContext context, CancellationToken cancellationToken = default)
     {
-        // Invoke the agent for spam detection
-        var response = await this._dataCollectorAgent.RunAsync(message);
+        var response = await _dataCollectorAgent.RunAsync(message);
         var dataCollectionResult = JsonSerializer.Deserialize<DataCollectionResult>(
             response.Text, 
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });

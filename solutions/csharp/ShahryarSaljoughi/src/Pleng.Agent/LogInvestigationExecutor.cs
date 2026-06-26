@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Pleng.Agent;
 
@@ -14,7 +15,7 @@ internal sealed partial class LogInvestigationExecutor : Executor<DataCollection
 {
     private readonly AIAgent _logInvestigationAgent;
 
-    public LogInvestigationExecutor(AIAgent emailAssistantAgent) : base("EmailAssistantExecutor")
+    public LogInvestigationExecutor(AIAgent emailAssistantAgent) : base("LogInvestigationExecutor")
     {
         this._logInvestigationAgent = emailAssistantAgent;
     }
@@ -48,5 +49,8 @@ internal class FinalAnswer
 {
     public string FinalAnswerText { get; set; } = string.Empty;
     public string? ErrorMessage { get; set; }
+
+    [JsonIgnore]
+    public string? Text => !string.IsNullOrEmpty(ErrorMessage) ? $"[ERROR] {ErrorMessage}" : $"[ANSWER] {FinalAnswerText}";
 }
 
