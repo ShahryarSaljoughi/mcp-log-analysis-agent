@@ -26,7 +26,7 @@ internal class OpenAIClientProvider(ILoggerFactory loggerFactory, Action<ChatOpt
             .AsBuilder()
             .ConfigureOptions(options => chatOptionsBuilder?.Invoke(options))
             .UseLogging(loggerFactory)
-            .UseOpenTelemetry(loggerFactory, sourceName: "Pleng.Agent", c => c.EnableSensitiveData = true)
+            .UseOpenTelemetry(loggerFactory, sourceName: "Pleng.Agent.ChatClient", c => c.EnableSensitiveData = true)
             .Build();
 
         return chatClient;

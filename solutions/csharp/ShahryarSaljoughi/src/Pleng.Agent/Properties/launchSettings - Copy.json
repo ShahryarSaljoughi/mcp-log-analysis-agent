@@ -4,7 +4,7 @@
       "commandName": "Project",
       "commandLineArgs": "\"Why has the payment service been returning HTTP 500 errors during the last 15 minutes?\"",
       "environmentVariables": {
-        "OPENAI_API_KEY": "",
+        "OPENAI_API_KEY": "aa-j2P0tSorSmnqThZesLkjk2cNlTZh4IFKqPSBbTiQZVE2jJjg",
         "OPENAI_ENDPOINT": "https://api.avalai.ir/v1 ",
         "BackendType": "OpenAI"
       }
