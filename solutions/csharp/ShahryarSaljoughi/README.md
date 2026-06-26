@@ -35,6 +35,7 @@ flowchart TB
     1.  **Data Collector Agent**: Extracts structured data (service name, time range) from the user's natural language query.
     2.  **Log Investigator Agent**: Interacts with the MCP server, calls tools to fetch logs, and formulates a final, human-readable diagnosis.
 *   **MCP-Powered Integration**: The `Log Investigator Agent` dynamically discovers and invokes tools from the `Pleng.MCP.Server` via the standardized MCP protocol.
+*   **Instrumented Code**: The OpenAI chat client and also the agents are all instrumented and emit logs and metrics. sample traces showing the actual messages exchange between agent, mcp and LLM can be found in [sample-tarce-logs.txt](https://github.com/ShahryarSaljoughi/mcp-log-analysis-agent/blob/solution/ShahryarSaljoughi/solutions/csharp/ShahryarSaljoughi/sample-tarce-logs.txt)
 *   **Configurable LLM Backend**: Easily switch between a real OpenAI-compatible LLM and a fully functional **Fake LLM** for testing and development without API costs.
 *   **Offline Testability**: The fake backend and simulated logs allow you to run, test, and demonstrate the entire system without an internet connection or API keys.
 *   **Extensible Design**: The agent, is separated from the LLM adapter using the `IChatClient` interface. Hence you can easily plug in other inference systems to this agent by implementing the `ChatClientProvider` abstraction. Clean separation of concerns makes it straightforward to add new log sources (collectors) or new MCP tools.
