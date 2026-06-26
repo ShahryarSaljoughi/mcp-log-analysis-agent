@@ -246,11 +246,11 @@ dotnet run --project .\src\Pleng.Agent\ -lp Pleng.Agent-OpenAI -- "Why has the h
 ## 🔧 Configuration
 All configuration for the Agent is managed via environment variables, making it suitable for containerized deployments.
 
-| Variable Name | Description	Required? |  
-|----|----|----|
-| BackendType | The LLM backend to use. Valid values are OpenAI or Fake. | Yes |
-| OPENAI_API_KEY | The API key for your OpenAI-compatible endpoint. Only required for OpenAI backend. | No |
-| OPENAI_ENDPOINT | The endpoint URL for your OpenAI-compatible API. Only required for OpenAI backend. | No |
+| Variable Name | Description |	Required? |  
+|----|----|----|  
+| BackendType | The LLM backend to use. Valid values are OpenAI or Fake. | Yes |  
+| OPENAI_API_KEY | The API key for your OpenAI-compatible endpoint. Only required for OpenAI backend. | No |  
+| OPENAI_ENDPOINT | The endpoint URL for your OpenAI-compatible API. Only required for OpenAI backend. | No |  
 | OPENAI_MODEL | (Optional) The model to use (defaults to gpt-5-mini). | No |  
 
 ## 🧪 Examples
