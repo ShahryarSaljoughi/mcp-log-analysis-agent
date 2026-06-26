@@ -19,12 +19,12 @@ internal class LogExplorerTools
         this._logStorageAdapter = logAdapter;
     }
 
-    [McpServerTool(Destructive = false, Idempotent = true, OutputSchemaType = typeof(string[]))]
-    [Description("returns list of services for whome logs are available.")]
-    public string[] GetServiceNames()
-    {
-        return ["Payment", "Loan", "CommunicationsHub"];
-    }
+    //[McpServerTool(Destructive = false, Idempotent = true, OutputSchemaType = typeof(string[]))]
+    //[Description("returns list of services for whome logs are available.")]
+    //public string[] GetServiceNames()
+    //{
+    //    return _logStorageAdapter.GetRegisteredServices();
+    //}
 
     [McpServerTool(Destructive = false, Idempotent = true, OutputSchemaType = typeof(string[]))]
     [Description("Returns application logs for a specified service since some minutes ago.")]
@@ -36,7 +36,7 @@ internal class LogExplorerTools
         {
             throw new McpException("Service name cannot be null or empty.");
         }
-        else if (GetServiceNames().All(s => !s.Equals(serviceName, StringComparison.OrdinalIgnoreCase)))
+        else if (_logStorageAdapter.GetRegisteredServices().All(s => !s.Equals(serviceName, StringComparison.OrdinalIgnoreCase)))
         {
             throw new McpException("Service name is not valid.");
         }
@@ -44,6 +44,11 @@ internal class LogExplorerTools
         {
             throw new McpException("Minutes ago must be a positive integer.");
         }
+        if (!_logStorageAdapter.GetRegisteredServices().Contains(serviceName)) 
+        {
+            throw new McpException("Service name is not registered int the system.");
+        }
+
 
         var logs = _logStorageAdapter.GetLogs(
             serviceName, 

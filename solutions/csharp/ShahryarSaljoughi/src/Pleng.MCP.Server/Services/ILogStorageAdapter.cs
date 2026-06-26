@@ -8,6 +8,7 @@ namespace Pleng.MCP.Server.Services;
 internal interface ILogStorageAdapter
 {
     public LogModel[] GetLogs(string serviceName, DateTimeOffset since, DateTimeOffset until);
+    string[] GetRegisteredServices();
 }
 
 internal class LogStorageAdapter : ILogStorageAdapter
@@ -40,20 +41,10 @@ internal class LogStorageAdapter : ILogStorageAdapter
     {
         return _logs.Where(l => l.ServiceName.Equals(serviceName, StringComparison.OrdinalIgnoreCase) && l.CreatedAt >= since && l.CreatedAt <= until).ToArray();
     }
-}
 
-internal class LogModel
-{
-    public LogLevel LogLevel { get; set; }
-    public required string ServiceName { get; set; }
-    public required string ErrorType { get; set; }
-    public long? TimeoutDuration { get; set; }
-    public string? TargetServer { get; set; }
-    public Dictionary<string, object> Properties { get; set; } = new();
-    public required DateTimeOffset CreatedAt { get; set; }
-    public override string ToString()
+    public string[] GetRegisteredServices()
     {
-        return $"[{LogLevel}] - {ServiceName} - {ErrorType} after {TimeoutDuration}ms on SQL-Server-01";
+        return [.. _logs.Select(l => l.ServiceName).Distinct()];
     }
 }
 
