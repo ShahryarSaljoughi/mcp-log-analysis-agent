@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pleng.Agent;
 
-internal class Config
+public class Config
 {
     public BackendType BackendType { get; }
     public string? OpenAIEndpointBase { get; }
@@ -24,7 +24,7 @@ internal class Config
     }
 }
 
-internal enum BackendType
+public enum BackendType
 {
     OpenAI = 1,
     Fake = 2

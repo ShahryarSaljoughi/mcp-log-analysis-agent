@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Pleng.Agent;
 
-internal sealed partial class DataCollectionExecutor : Executor<ChatMessage, DataCollectionResult>
+public sealed partial class DataCollectionExecutor : Executor<ChatMessage, DataCollectionResult>
 {
     private readonly AIAgent _dataCollectorAgent;
 
@@ -26,7 +26,7 @@ internal sealed partial class DataCollectionExecutor : Executor<ChatMessage, Dat
     }
 }
 
-internal class DataCollectionResult
+public class DataCollectionResult
 {
     public string? ServiceName { get; set; }
     public int? MinutesAgo { get; set; }

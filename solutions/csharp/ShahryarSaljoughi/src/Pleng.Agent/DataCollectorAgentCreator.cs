@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Pleng.Agent;
 using Pleng.Agent.LLMClients;
 
-internal class DataCollectorAgentCreator
+public class DataCollectorAgentCreator
 {
     public async Task<AIAgent> CreateAsync(Config agentConfig)
     {

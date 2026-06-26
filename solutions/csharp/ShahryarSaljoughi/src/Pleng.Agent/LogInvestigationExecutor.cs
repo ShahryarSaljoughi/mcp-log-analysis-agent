@@ -11,7 +11,7 @@ namespace Pleng.Agent;
 /// <summary>
 /// Executor that Investigating Logs
 /// </summary>
-internal sealed partial class LogInvestigationExecutor : Executor<DataCollectionResult, FinalAnswer>
+public sealed partial class LogInvestigationExecutor : Executor<DataCollectionResult, FinalAnswer>
 {
     private readonly AIAgent _logInvestigationAgent;
 
@@ -45,7 +45,7 @@ and the relevant data based on user's message are:
     }
 }
 
-internal class FinalAnswer
+public class FinalAnswer
 {
     public string FinalAnswerText { get; set; } = string.Empty;
     public string? ErrorMessage { get; set; }
